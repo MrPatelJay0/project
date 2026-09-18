@@ -1,0 +1,140 @@
+[
+  {
+    "name": "Cheese Burger",
+    "price": 120,
+    "category": "Burger",
+    "image": "Pics/Cheese burger.jpg"
+  },
+  {
+    "name": "Classic Veg Burger",
+    "price": 150,
+    "category": "Burger",
+    "image": "Pics/Burger 2.jpg"
+  },
+  {
+    "name": "Aloo Tikki Burger",
+    "price": 220,
+    "category": "Burger",
+    "image": "Pics/Aloo-Tikki-Burger-2.jpg"
+  },
+  {
+    "name": "Cheese Pizza",
+    "price": 180,
+    "category": "Pizza",
+    "image": "Pics/Cheese Pizza.png"
+  },
+  {
+    "name": "Veg Pizza",
+    "price": 200,
+    "category": "Pizza",
+    "image": "Pics/veg pizza.jpg"
+  },
+  {
+    "name": "Paneer Tikka Pizza",
+    "price": 250,
+    "category": "Pizza",
+    "image": "Pics/Paneer Tikka Pizza.jpg"
+  },
+  {
+    "name": "Veg Biryani",
+    "price": 180,
+    "category": "Biryani",
+    "image": "Pics/veg biryani.jpg"
+  },
+  {
+    "name": "Paneer Biryani",
+    "price": 220,
+    "category": "Biryani",
+    "image": "Pics/Paneer biryani.avif"
+  },
+  {
+    "name": "Mushroom Biryani",
+    "price": 250,
+    "category": "Biryani",
+    "image": "Pics/Mushroom Biryani.jpg"
+  },
+  {
+    "name": "Coca Cola",
+    "price": 60,
+    "category": "Cold Drinks",
+    "image": "Pics/Coca Cola.jpg"
+  },
+  {
+    "name": "Pepsi",
+    "price": 60,
+    "category": "Cold Drinks",
+    "image": "Pics/Pepsi.jpg"
+  },
+  {
+    "name": "Sprite",
+    "price": 60,
+    "category": "Cold Drinks",
+    "image": "Pics/Sprite.jpg"
+  },
+  {
+    "name": "Thums Up",
+    "price": 60,
+    "category": "Cold Drinks",
+    "image": "Pics/Thums Up.jpg"
+  },
+  {
+    "name": "Fanta",
+    "price": 60,
+    "category": "Cold Drinks",
+    "image": "Pics/Fanta.jpg"
+  },
+  {
+    "name": "Fresh Lime Soda",
+    "price": 70,
+    "category": "Cold Drinks",
+    "image": "Pics/Fresh Lime Soda.jpg"
+  },
+  {
+    "name": "French Fries",
+    "price": 100,
+    "category": "More Items",
+    "image": "Pics/French Fries.jpg"
+  },
+  {
+    "name": "Peri Peri Fries",
+    "price": 130,
+    "category": "More Items",
+    "image": "Pics/Peri Peri Fries.jpg"
+  },
+  {
+    "name": "Garlic Bread",
+    "price": 120,
+    "category": "More Items",
+    "image": "Pics/Garlic Bread.jpg"
+  },
+  {
+    "name": "Cheese Garlic Bread",
+    "price": 150,
+    "category": "More Items",
+    "image": "Pics/Cheese Garlic Bread.jpg"
+  },
+  {
+    "name": "Veg Sandwich",
+    "price": 140,
+    "category": "More Items",
+    "image": "Pics/Veg Sandwich.jpg"
+  },
+  {
+    "name": "Paneer Sandwich",
+    "price": 170,
+    "category": "More Items",
+    "image": "Pics/Paneer Sandwich.jpg"
+  },
+  {
+    "name": "Veg Nuggets",
+    "price": 130,
+    "category": "More Items",
+    "image": "Pics/Veg Nuggets.jpg"
+  },
+  {
+    "name": "Onion Rings",
+    "price": 110,
+    "category": "More Items",
+    "image": "Pics/Onion Rings.jpg"
+  }
+]

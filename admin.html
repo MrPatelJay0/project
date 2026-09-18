@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Admin Panel - FoodExpress</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-light" onload="showFoods()">
+    <script>
+      let adminLoggedIn = localStorage.getItem("adminLoggedIn");
+
+      if (adminLoggedIn != "true") {
+        window.location.href = "admin-login.html";
+      }
+    </script>
+
+    <!-- Navbar -->
+
+    <nav class="navbar navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand">
+          FoodExpress <span class="ms-2">Admin</span>
+        </a>
+
+        <a href="menu.html" class="btn btn-light"> Menu </a>
+
+        <button class="btn btn-light" onclick="logout()">Logout</button>
+      </div>
+    </nav>
+
+    <!-- Admin Panel -->
+
+    <div class="container mt-5">
+      <h1 class="text-center mb-2">Admin Panel</h1>
+
+      <p class="text-center text-muted mb-5">Manage food items and orders</p>
+
+      <!-- Dashboard Cards -->
+
+      <div class="row g-4">
+        <!-- Food Items -->
+
+        <div class="col-md-4">
+          <div class="card text-center shadow">
+            <div class="card-body">
+              <h3 class="card-title">Food Items</h3>
+
+              <p class="card-text">Manage food menu items.</p>
+
+              <button class="btn btn-primary" onclick="showFoodForm()">
+                Manage Food
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orders -->
+
+        <div class="col-md-4">
+          <div class="card text-center shadow">
+            <div class="card-body">
+              <h3 class="card-title">Orders</h3>
+
+              <p class="card-text">View customer orders.</p>
+
+              <button class="btn btn-success" onclick="viewOrders()">
+                View Orders
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Users -->
+
+        <div class="col-md-4">
+          <div class="card text-center shadow">
+            <div class="card-body">
+              <h3 class="card-title">Users</h3>
+
+              <p class="card-text">Manage application users.</p>
+
+              <button class="btn btn-warning" onclick="showMessage('Users')">
+                View Users
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Orders Section -->
+
+      <div id="ordersSection" class="container mt-5 mb-5" style="display: none">
+        <h3 class="text-center mb-4">Customer Orders</h3>
+
+        <div id="adminOrders"></div>
+      </div>
+
+      <!-- Add Food Form -->
+
+      <div id="foodForm" class="card mt-5" style="display: none">
+        <div class="card-body">
+          <h3 class="text-center mb-4">Add Food Item</h3>
+
+          <div class="container mt-5">
+            <h3 class="mb-3">Food Items</h3>
+
+            <div id="foodList"></div>
+          </div>
+
+          <!-- Food Name -->
+
+          <div class="mb-3">
+            <label class="form-label"> Food Name </label>
+
+            <input
+              type="text"
+              id="foodName"
+              class="form-control"
+              placeholder="Enter food name"
+            />
+          </div>
+
+          <!-- Price -->
+
+          <div class="mb-3">
+            <label class="form-label"> Price </label>
+
+            <input
+              type="number"
+              id="foodPrice"
+              class="form-control"
+              placeholder="Enter price"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label"> Food Image </label>
+
+            <input
+              type="text"
+              id="foodImage"
+              class="form-control"
+              placeholder="Example: Pics/Coca Cola.jpg"
+            />
+          </div>
+
+          <!-- Category -->
+
+          <div class="mb-3">
+            <label class="form-label"> Category </label>
+
+            <select id="foodCategory" class="form-select">
+              <option value="Burger">Burger</option>
+
+              <option value="Pizza">Pizza</option>
+
+              <option value="Biryani">Biryani</option>
+
+              <option value="Cold Drinks">Cold Drinks</option>
+
+              <option value="More Items">More Items</option>
+            </select>
+          </div>
+
+          <!-- Add Button -->
+
+          <div class="text-center">
+            <button class="btn btn-success" onclick="addFood()">
+              Add Food
+            </button>
+
+            <button class="btn btn-success" onclick="updateFood()">
+              Update Food
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message -->
+
+      <div
+        id="message"
+        class="alert alert-info text-center mt-5"
+        style="display: none"
+      ></div>
+    </div>
+
+    <!-- JavaScript -->
+
+    <script>
+      // Show message
+
+      function showMessage(name) {
+        let message = document.getElementById("message");
+
+        message.innerHTML = name + " section selected.";
+
+        message.style.display = "block";
+      }
+
+      // Show food form
+
+      function showFoodForm() {
+        document.getElementById("foodForm").style.display = "block";
+      }
+
+      // Add food item
+
+      let editIndex = -1;
+
+      function addFood() {
+        let name = document.getElementById("foodName").value;
+        let price = document.getElementById("foodPrice").value;
+        let category = document.getElementById("foodCategory").value;
+        let image = document.getElementById("foodImage").value;
+
+        if (name == "" || price == "") {
+          alert("Please enter food name and price");
+          return;
+        }
+
+        let foods = JSON.parse(localStorage.getItem("foods")) || [];
+
+        let food = {
+          name: name,
+          price: parseInt(price),
+          category: category,
+          image: image,
+        };
+
+        foods.push(food);
+
+        localStorage.setItem("foods", JSON.stringify(foods));
+
+        alert("Food Added Successfully!");
+
+        document.getElementById("foodName").value = "";
+        document.getElementById("foodPrice").value = "";
+        document.getElementById("foodImage").value = "";
+
+        showFoods();
+      }
+
+      function showFoods() {
+        let foods = JSON.parse(localStorage.getItem("foods")) || [];
+
+        let foodList = document.getElementById("foodList");
+
+        foodList.innerHTML = "";
+
+        for (let i = 0; i < foods.length; i++) {
+          foodList.innerHTML += `
+            <div class="card mb-3">
+
+                <div class="card-body">
+
+                    <h5>${foods[i].name}</h5>
+
+                    <p>Price: ₹${foods[i].price}</p>
+
+                    <p>Category: ${foods[i].category}</p>
+
+                    <button class="btn btn-warning"
+                        onclick="editFood(${i})">
+                        Edit
+                    </button>
+
+                    <button class="btn btn-danger"
+                        onclick="deleteFood(${i})">
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+        }
+      }
+
+      function deleteFood(index) {
+        let result = confirm("Are you sure you want to delete this food?");
+
+        if (result == true) {
+          let foods = JSON.parse(localStorage.getItem("foods")) || [];
+
+          foods.splice(index, 1);
+
+          localStorage.setItem("foods", JSON.stringify(foods));
+
+          alert("Food Deleted Successfully!");
+
+          showFoods();
+        }
+      }
+
+      function editFood(index) {
+        let foods = JSON.parse(localStorage.getItem("foods")) || [];
+
+        document.getElementById("foodName").value = foods[index].name;
+
+        document.getElementById("foodPrice").value = foods[index].price;
+
+        document.getElementById("foodCategory").value = foods[index].category;
+
+        document.getElementById("foodImage").value = foods[index].image;
+
+        editIndex = index;
+
+        document.getElementById("foodForm").style.display = "block";
+      }
+
+      function updateFood() {
+        let name = document.getElementById("foodName").value;
+        let price = document.getElementById("foodPrice").value;
+        let category = document.getElementById("foodCategory").value;
+        let image = document.getElementById("foodImage").value;
+
+        if (editIndex == -1) {
+          alert("Please select a food item to edit.");
+          return;
+        }
+
+        if (name == "" || price == "") {
+          alert("Please enter food name and price");
+          return;
+        }
+
+        let foods = JSON.parse(localStorage.getItem("foods")) || [];
+
+        foods[editIndex].name = name;
+        foods[editIndex].price = parseInt(price);
+        foods[editIndex].category = category;
+        foods[editIndex].image = image;
+
+        localStorage.setItem("foods", JSON.stringify(foods));
+
+        alert("Food Updated Successfully!");
+
+        editIndex = -1;
+
+        document.getElementById("foodName").value = "";
+        document.getElementById("foodPrice").value = "";
+
+        showFoods();
+      }
+
+      function showAdminOrders() {
+        let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+        let adminOrders = document.getElementById("adminOrders");
+
+        adminOrders.innerHTML = "";
+
+        if (orders.length == 0) {
+          adminOrders.innerHTML = `
+            <div class="alert alert-info text-center">
+                No orders found.
+            </div>
+        `;
+
+          return;
+        }
+
+        for (let i = 0; i < orders.length; i++) {
+          let total = 0;
+
+          for (let j = 0; j < orders[i].items.length; j++) {
+            total =
+              total + orders[i].items[j].price * orders[i].items[j].quantity;
+          }
+
+          adminOrders.innerHTML += `
+
+            <div class="card shadow-sm mb-4">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <h5>
+                            Order #${i + 1}
+                        </h5>
+
+                        <span class="badge bg-primary">
+                            ${orders[i].status || "Order Placed"}
+                        </span>
+
+                    </div>
+
+                    <hr>
+
+                    <h6>Items:</h6>
+
+                    <ul>
+        `;
+
+          for (let j = 0; j < orders[i].items.length; j++) {
+            adminOrders.innerHTML += `
+
+                <li>
+                    ${orders[i].items[j].name}
+                    × ${orders[i].items[j].quantity}
+                    - ₹${orders[i].items[j].price * orders[i].items[j].quantity}
+                </li>
+
+            `;
+          }
+
+          adminOrders.innerHTML += `
+
+                    </ul>
+
+                    <hr>
+
+                    <h5>
+                        Total: ₹${total}
+                    </h5>
+
+                    <label class="form-label">
+                        Change Order Status
+                    </label>
+
+                    <select
+                        class="form-select"
+                        onchange="changeOrderStatus(${i}, this.value)">
+
+                        <option value="Order Placed"
+                            ${orders[i].status == "Order Placed" ? "selected" : ""}>
+                            Order Placed
+                        </option>
+
+                        <option value="Preparing"
+                            ${orders[i].status == "Preparing" ? "selected" : ""}>
+                            Preparing
+                        </option>
+
+                        <option value="Out for Delivery"
+                            ${orders[i].status == "Out for Delivery" ? "selected" : ""}>
+                            Out for Delivery
+                        </option>
+
+                        <option value="Delivered"
+                            ${orders[i].status == "Delivered" ? "selected" : ""}>
+                            Delivered
+                       </option>
+
+                </select>
+
+                </div>
+
+            </div>
+
+        `;
+        }
+      }
+
+      function changeOrderStatus(index, status) {
+        let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+        orders[index].status = status;
+
+        localStorage.setItem("orders", JSON.stringify(orders));
+
+        alert("Order status updated!");
+
+        showAdminOrders();
+      }
+
+      // View Orders
+
+      function viewOrders() {
+        document.getElementById("ordersSection").style.display = "block";
+
+        showAdminOrders();
+      }
+
+      // Logout
+
+      function logout() {
+        localStorage.removeItem("adminLoggedIn");
+        alert("Admin Logout Successfully!");
+        window.location.href = "menu.html";
+      }
+    </script>
+  </body>
+</html>
