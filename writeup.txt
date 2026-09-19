@@ -1,0 +1,7 @@
+The Online Food Ordering Application – Food Express is a web-based application developed to provide a simple and convenient platform for ordering food online. The project allows users to register and log in, browse different food categories, view food items, add items to the cart, manage quantities, calculate the total price, place orders, and view their order status.
+
+The application also provides an Admin Panel where the administrator can securely log in, add new food items, edit existing food details, delete food items, view customer orders, and update the order status. The use of Local Storage helps store user, cart, food, and order information in the browser, while JSON and Fetch are used to load food data dynamically. HTML, CSS, Bootstrap, and JavaScript are used together to create the structure, design, responsive layout, and functionality of the application.
+
+Through this project, practical concepts of web development, JavaScript, form handling, DOM manipulation, Local Storage, JSON, Fetch/AJAX, responsive design, cart management, and order management are demonstrated. The project provides a complete example of how different front-end technologies can work together to create an interactive online food ordering system.
+
+Overall, Food Express successfully demonstrates the required functionality of an online food ordering application with both user and admin modules.
